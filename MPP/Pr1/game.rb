@@ -1,12 +1,10 @@
-names = ['Rock', 'Paper', 'Scissors']
+names = {Rock: 0, Paper: 1, Scissors: 2}
 
-puts 'Your move: 0 - Rock, 1 - Paper, 2 - Scissors'
+user_choice = names[ARGV[0].to_sym] 
+computer_choice = names[ARGV[1].to_sym]
 
-user_choice = gets.to_i
-computer_choice = rand(3)
-
-puts 'Your move: ' + names[user_choice]
-puts 'Computer move: ' + names[computer_choice]
+puts "Your move: #{user_choice} " 
+puts "Computer move: #{computer_choice}" 
 
 if user_choice == computer_choice
   puts 'Draw'
@@ -18,4 +16,4 @@ elsif user_choice == 2 && computer_choice == 0
   puts 'Victory'
 else
   puts 'Defeat'
-end
+end 
