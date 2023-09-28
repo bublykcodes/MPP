@@ -1,28 +1,61 @@
-class Character
-  def description
-    "Базовий персонаж"
-  end
-end
-
-
-class SkinDecorator < Character
-  def initialize(character, skin)
-    @character = character
-    @skin = skin
+class Soldier
+  def initialize(name)
+    @name = name
   end
 
   def description
-    "#{@character.description}, Скін: #{@skin}"
+    "Солдат #{@name}"
   end
 end
 
+class CamouflageDecorator < Soldier
+  def initialize(soldier, camouflage)
+    super(soldier.description)
+    @soldier = soldier
+    @camouflage = camouflage
+  end
 
-character = Character.new
+  def description
+    @soldier.description + " в #{@camouflage} камуфляжі"
+  end
+end
 
+class BodyArmorDecorator < Soldier
+  def initialize(soldier)
+    super(soldier.description)
+    @soldier = soldier
+  end
 
-character_with_skin1 = SkinDecorator.new(character, "Скін 1")
-character_with_skin2 = SkinDecorator.new(character, "Скін 2")
+  def description
+    @soldier.description + ", в бронежилеті"
+  end
+end
 
+class BackpackDecorator < Soldier
+  def initialize(soldier)
+    super(soldier.description)
+    @soldier = soldier
+  end
 
-puts character_with_skin1.description 
-puts character_with_skin2.description 
+  def description
+    @soldier.description + ", з рюкзаком"
+  end
+end
+
+soldier = Soldier.new('Джон')
+soldier = CamouflageDecorator.new(soldier, 'Піксель')
+
+soldier_with_armor = BodyArmorDecorator.new(soldier)
+
+soldier_with_backpack = BackpackDecorator.new(soldier_with_armor)
+
+puts soldier_with_backpack.description
+
+another_soldier = Soldier.new('Майкл')
+another_soldier = CamouflageDecorator.new(another_soldier, 'Мультикам')
+
+another_soldier_with_armor = BodyArmorDecorator.new(another_soldier)
+
+another_soldier_with_backpack = BackpackDecorator.new(another_soldier_with_armor)
+
+puts another_soldier_with_backpack.description
